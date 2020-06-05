@@ -5,11 +5,12 @@ from svg_wrapper import SvgWrapper
 
 planet_data = DataSource().get()
 star_data, maxima = DataProcessor(planet_data, 50).get_star_data()
-print(maxima)
 svg = Svg()
 svg_wrapper = SvgWrapper(svg, maxima)
 
 for star in star_data:
     svg_wrapper.add_star(star)
 
-svg.save('test.svg')
+OUT_FILE='exoplanets.svg'
+svg.save(OUT_FILE)
+print('Render complete:', OUT_FILE)

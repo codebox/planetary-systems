@@ -35,7 +35,7 @@ class DataSource:
             STAR_RADIUS: row['st_rad'],
             PLANET_RADIUS: row['pl_rade'],
             PLANET_DISCOVERED: row['pl_disc'],
-            STAR_TYPE: row['st_sp']
+            STAR_TYPE: row['st_spstr']
         }
 
     def _download_data_file(self):

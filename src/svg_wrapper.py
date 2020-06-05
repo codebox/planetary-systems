@@ -12,15 +12,16 @@ class SvgWrapper:
         self.box_height = self.box_width * 1.5 #TODO
 
         self._rescale_orbit = self._build_log_rescale(0, maxima[PLANET_ORBIT_SIZE], 5, self.box_width/2 - SVG_BOX_PADDING)
+        self._rescale_star_width = self._build_log_rescale(0, maxima[STAR_RADIUS], 5, 10)
 
     def add_star(self, star):
         box_x, box_y = self._get_box_for_star(self.star_count)
-        self.svg.add_rect(box_x, box_y, self.box_width, self.box_height, 'starClass')
+        self.svg.add_rect(box_x, box_y, self.box_width, self.box_height, 'starBox')
 
-        star_disc_width = 2
+        star_disc_width = self._rescale_star_width(star[STAR_RADIUS] or 0)
         system_center_x = box_x + self.box_width/2
         system_center_y = box_y + self.box_width/2
-        self.svg.add_circle(system_center_x, system_center_y, star_disc_width / 2, 'starDisc')
+        self.svg.add_circle(system_center_x, system_center_y, star_disc_width / 2, 'starDisc starDisc' + (star[STAR_TYPE] or 'O')[0])
 
         for planet in star[PLANETS]:
             if planet[PLANET_ORBIT_SIZE]:
@@ -46,3 +47,9 @@ class SvgWrapper:
         box_y = SVG_MARGIN_Y + int(star_index / SVG_BOX_COUNT_X) * (self.box_height + 2 * SVG_BOX_MARGIN_Y) + SVG_BOX_MARGIN_Y
 
         return box_x, box_y
+
+    def _get_color_from_type(self, star_type):
+        star_class = star_type[0]
+        return COLOUR_LOOKUP.get(star_class, 'O')
+
+
