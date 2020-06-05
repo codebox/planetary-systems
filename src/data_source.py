@@ -2,6 +2,7 @@ import csv
 import os, os.path
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
+from field_names import *
 
 DATA_FILE = 'data/exoplanets.csv'
 
@@ -24,7 +25,18 @@ class DataSource:
 
     def _parse_data_file_row(self, row):
         return {
-            'name': row['pl_name']
+            PLANET_NAME: row['pl_name'],
+            STAR_NAME: row['pl_hostname'],
+            PLANET_COUNT: row['pl_pnum'],
+            PLANET_ORBIT_DAYS: row['pl_orbper'],
+            PLANET_ORBIT_SIZE: row['pl_orbsmax'],
+            PLANET_RADIUS: row['pl_radj'],
+            STAR_DISTANCE: row['st_dist'],
+            STAR_MAGNITUDE: row['st_optmag'],
+            STAR_RADIUS: row['st_rad'],
+            PLANET_RADIUS: row['pl_rade'],
+            PLANET_DISCOVERED: row['pl_disc'],
+            STAR_TYPE: row['st_sp']
         }
 
     def _download_data_file(self):
