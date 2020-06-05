@@ -8,6 +8,21 @@
             text{
                 font-family: 'B612 Mono', monospace;
             }
+            .starClass {
+                stroke: black;
+                stroke-width: 1px;
+                fill: none;
+            }
+            .starDisc {
+                stroke: black;
+                stroke-width: 1px;
+                fill: yellow;
+            }
+            .planetOrbit {
+                stroke: black;
+                stroke-width: 1px;
+                fill: none;
+            }
         </style>
         <style type="text/css"><![CDATA[%style%]]></style>
     </defs>
