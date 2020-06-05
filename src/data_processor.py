@@ -1,9 +1,11 @@
 from field_names import *
 
 class DataProcessor:
-    def __init__(self, planet_data):
+    def __init__(self, planet_data, count):
         self.planet_data = planet_data
         self.star_data = []
+        self.count = count
+        self.maxima = None
 
     def get_star_data(self):
         if not self.star_data:
@@ -26,15 +28,36 @@ class DataProcessor:
 
                 star[PLANETS].append(self._build_planet_data(planet))
 
-            for star_name, star_data in star_data_lookup.items():
-                assert len(star_data[PLANETS]) == star_data[PLANET_COUNT], 'Planet count mismatch for star "{}", data was {}'.format(star_name, star_data)
-                star_data[PLANET_DISCOVERED] = min(map(lambda p: p[PLANET_DISCOVERED], star_data[PLANETS]))
+            for name, data in star_data_lookup.items():
+                assert len(data[PLANETS]) == data[PLANET_COUNT], 'Planet count mismatch for star "{}", data was {}'.format(name, data)
+                data[PLANET_DISCOVERED] = min(map(lambda p: p[PLANET_DISCOVERED], data[PLANETS]))
 
             star_data = list(star_data_lookup.values())
             star_data.sort(key=lambda s: s[PLANET_DISCOVERED])
-            self.star_data = star_data
+            star_data=star_data[:self.count]
 
-        return self.star_data
+            self.star_data = star_data
+            self.maxima = self._calculate_maxima(star_data)
+
+        return self.star_data, self.maxima
+
+    def _calculate_maxima(self, all_star_data):
+        max_star_radius = -1
+        max_planet_radius = -1
+        max_orbit_radius = -1
+
+        for star_data in all_star_data:
+            max_star_radius = max(max_star_radius, star_data[STAR_RADIUS] or 0)
+
+            for planet in star_data[PLANETS]:
+                max_planet_radius = max(max_planet_radius, planet[PLANET_RADIUS] or 0)
+                max_orbit_radius = max(max_orbit_radius, planet[PLANET_ORBIT_SIZE] or 0)
+
+        return {
+            STAR_RADIUS: max_star_radius,
+            PLANET_RADIUS: max_planet_radius,
+            PLANET_ORBIT_SIZE: max_orbit_radius
+        }
 
     def _build_star_data(self, planet):
         return {

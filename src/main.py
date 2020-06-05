@@ -4,10 +4,10 @@ from svg import Svg
 from svg_wrapper import SvgWrapper
 
 planet_data = DataSource().get()
-star_data = DataProcessor(planet_data).get_star_data()
-
+star_data, maxima = DataProcessor(planet_data, 50).get_star_data()
+print(maxima)
 svg = Svg()
-svg_wrapper = SvgWrapper(svg)
+svg_wrapper = SvgWrapper(svg, maxima)
 
 for star in star_data:
     svg_wrapper.add_star(star)
