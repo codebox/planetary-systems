@@ -30,7 +30,6 @@ class DataSource:
             PLANET_COUNT: row['pl_pnum'],
             PLANET_ORBIT_DAYS: row['pl_orbper'],
             PLANET_ORBIT_SIZE: row['pl_orbsmax'],
-            PLANET_RADIUS: row['pl_radj'],
             STAR_DISTANCE: row['st_dist'],
             STAR_MAGNITUDE: row['st_optmag'],
             STAR_RADIUS: row['st_rad'],
