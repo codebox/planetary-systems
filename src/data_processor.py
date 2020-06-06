@@ -1,6 +1,7 @@
 from field_names import *
 
 DEFAULT_ORBIT_SIZE = 1
+DEFAULT_PLANET_RADIUS = 1
 
 class DataProcessor:
     def __init__(self, planet_data, count):
@@ -37,7 +38,6 @@ class DataProcessor:
             star_data = list(star_data_lookup.values())
             star_data.sort(key=lambda s: s[PLANET_DISCOVERED])
             star_data=star_data[:self.count]
-            print(star_data[0])
 
             self.star_data = star_data
             self.maxima = self._calculate_maxima(star_data)
@@ -77,7 +77,7 @@ class DataProcessor:
         return {
             PLANET_NAME: planet[PLANET_NAME],
             PLANET_DISCOVERED: planet[PLANET_DISCOVERED],
-            PLANET_RADIUS: self._to_float(planet[PLANET_RADIUS]),
+            PLANET_RADIUS: self._to_float(planet[PLANET_RADIUS]) or DEFAULT_PLANET_RADIUS,
             PLANET_ORBIT_SIZE: self._to_float(planet[PLANET_ORBIT_SIZE]) or DEFAULT_ORBIT_SIZE,
             PLANET_ORBIT_DAYS: self._to_float(planet[PLANET_ORBIT_DAYS])
         }
