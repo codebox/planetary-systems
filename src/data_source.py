@@ -34,7 +34,7 @@ class DataSource:
             STAR_MAGNITUDE: row['st_optmag'],
             STAR_RADIUS: row['st_rad'],
             PLANET_RADIUS: row['pl_rade'],
-            PLANET_DISCOVERED: row['pl_disc'],
+            PLANET_DISCOVERED: row['pl_publ_date'] or row['pl_disc'],
             STAR_TYPE: row['st_spstr']
         }
 

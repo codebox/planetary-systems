@@ -7,14 +7,18 @@
         <style type="text/css">
             text{
                 font-family: 'B612 Mono', monospace;
+                fill: white;
+            }
+            svg {
+                background-color: black;
             }
             .starBox {
-                stroke: black;
+                stroke: white;
                 stroke-width: 1px;
                 fill: none;
             }
             .starDisc {
-                stroke: black;
+                stroke: white;
                 stroke-width: 1px;
             }
             .starDiscW, .starDiscO {
@@ -39,7 +43,7 @@
                 fill: #f80000;
             }
             .planetOrbit {
-                stroke: black;
+                stroke: white;
                 stroke-width: 1px;
                 fill: none;
             }
