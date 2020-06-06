@@ -9,6 +9,9 @@
                 font-family: 'B612 Mono', monospace;
                 fill: white;
             }
+            .mainTitle {
+                font-size: 25px;
+            }
             svg {
                 background-color: black;
             }
@@ -55,5 +58,6 @@
         </style>
         <style type="text/css"><![CDATA[%style%]]></style>
     </defs>
+    <text x="50%" y="50px" text-anchor="middle" class="mainTitle">Exoplanets</text>
     %substance%
 </svg>

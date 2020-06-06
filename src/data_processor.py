@@ -6,10 +6,11 @@ DEFAULT_PLANET_RADIUS = 1
 DEFAULT_PLANET_ORBIT_DAYS = DAYS_PER_YEAR
 
 class DataProcessor:
-    def __init__(self, planet_data, count):
+    def __init__(self, planet_data, count, get_sort_key):
         self.planet_data = planet_data
         self.star_data = []
         self.count = count
+        self.get_sort_key = get_sort_key
         self.maxima = None
 
     def get_star_data(self):
@@ -38,7 +39,7 @@ class DataProcessor:
                 data[PLANET_DISCOVERED] = min(map(lambda p: p[PLANET_DISCOVERED], data[PLANETS]))
 
             star_data = list(star_data_lookup.values())
-            star_data.sort(key=lambda s: s[PLANET_DISCOVERED])
+            star_data.sort(key=self.get_sort_key)
             star_data=star_data[:self.count]
 
             self.star_data = star_data
