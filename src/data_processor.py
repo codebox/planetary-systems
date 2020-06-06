@@ -1,5 +1,7 @@
 from field_names import *
 
+DEFAULT_ORBIT_SIZE = 1
+
 class DataProcessor:
     def __init__(self, planet_data, count):
         self.planet_data = planet_data
@@ -76,7 +78,7 @@ class DataProcessor:
             PLANET_NAME: planet[PLANET_NAME],
             PLANET_DISCOVERED: planet[PLANET_DISCOVERED],
             PLANET_RADIUS: self._to_float(planet[PLANET_RADIUS]),
-            PLANET_ORBIT_SIZE: self._to_float(planet[PLANET_ORBIT_SIZE]),
+            PLANET_ORBIT_SIZE: self._to_float(planet[PLANET_ORBIT_SIZE]) or DEFAULT_ORBIT_SIZE,
             PLANET_ORBIT_DAYS: self._to_float(planet[PLANET_ORBIT_DAYS])
         }
 

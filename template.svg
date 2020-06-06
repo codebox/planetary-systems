@@ -13,12 +13,7 @@
                 background-color: black;
             }
             .starBox {
-                stroke: white;
-                stroke-width: 1px;
-                fill: none;
-            }
-            .starDisc {
-                stroke: white;
+                stroke: #444;
                 stroke-width: 1px;
             }
             .starDiscW, .starDiscO {
@@ -46,6 +41,11 @@
                 stroke: white;
                 stroke-width: 1px;
                 fill: none;
+            }
+            .planetDisc {
+                stroke: white;
+                fill: black;
+                stroke-width: 1px;
             }
         </style>
         <style type="text/css"><![CDATA[%style%]]></style>

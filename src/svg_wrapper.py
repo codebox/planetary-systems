@@ -9,7 +9,7 @@ class SvgWrapper:
         self.star_count = 0
         self.svg.add_styles('.starName', {'font-size': str(SVG_SMALL_TEXT_SIZE) + 'px'})
         self.box_width = ((SVG_WIDTH - (2 * SVG_MARGIN_X)) / SVG_BOX_COUNT_X) - 2 * SVG_BOX_MARGIN_X
-        self.box_height = self.box_width * 1.5 #TODO
+        self.box_height = self.box_width * SVG_BOX_ASPECT_RATIO
 
         self._rescale_orbit = self._build_log_rescale(0, maxima[PLANET_ORBIT_SIZE], 5, self.box_width/2 - SVG_BOX_PADDING)
         self._rescale_star_width = self._build_log_rescale(0, maxima[STAR_RADIUS], 5, 10)
@@ -23,12 +23,18 @@ class SvgWrapper:
         system_center_y = box_y + self.box_width/2
         self.svg.add_circle(system_center_x, system_center_y, star_disc_width / 2, 'starDisc starDisc' + (star[STAR_TYPE] or 'O')[0])
 
-        for planet in star[PLANETS]:
-            if planet[PLANET_ORBIT_SIZE]:
+        planet_discs = []
+        planet_separation = 2 * math.pi / len(star[PLANETS])
+        for i, planet in enumerate(star[PLANETS]):
                 orbit_radius = self._rescale_orbit(planet[PLANET_ORBIT_SIZE])
                 self.svg.add_circle(system_center_x, system_center_y, orbit_radius, 'planetOrbit')
+                planet_x, planet_y = self._get_planet_center(system_center_x, system_center_y, orbit_radius, planet_separation * i + self.star_count)
+                planet_discs.append([planet_x, planet_y, 2])
 
-        self.svg.add_centered_text(star[STAR_NAME], box_x + self.box_width/2, box_y + self.box_height - SVG_SMALL_TEXT_SIZE, 'starName')
+        for x, y, r in planet_discs:
+            self.svg.add_circle(x, y, r, 'planetDisc')
+
+        self.svg.add_centered_text(star[STAR_NAME], box_x + self.box_width/2, box_y + self.box_height - 2*SVG_SMALL_TEXT_SIZE, 'starName')
         self.star_count += 1
 
     def _build_log_rescale(self, orig_min, orig_max, scaled_min, scaled_max):
@@ -51,5 +57,8 @@ class SvgWrapper:
     def _get_color_from_type(self, star_type):
         star_class = star_type[0]
         return COLOUR_LOOKUP.get(star_class, 'O')
+
+    def _get_planet_center(self, star_x, star_y, orbit_radius, angle):
+        return star_x + orbit_radius * math.sin(angle), star_y + orbit_radius * math.cos(angle)
 
 
