@@ -1,7 +1,9 @@
 from field_names import *
 
+DAYS_PER_YEAR = 365
 DEFAULT_ORBIT_SIZE = 1
 DEFAULT_PLANET_RADIUS = 1
+DEFAULT_PLANET_ORBIT_DAYS = DAYS_PER_YEAR
 
 class DataProcessor:
     def __init__(self, planet_data, count):
@@ -79,8 +81,8 @@ class DataProcessor:
             PLANET_DISCOVERED: planet[PLANET_DISCOVERED],
             PLANET_RADIUS: self._to_float(planet[PLANET_RADIUS]) or DEFAULT_PLANET_RADIUS,
             PLANET_ORBIT_SIZE: self._to_float(planet[PLANET_ORBIT_SIZE]) or DEFAULT_ORBIT_SIZE,
-            PLANET_ORBIT_DAYS: self._to_float(planet[PLANET_ORBIT_DAYS])
+            PLANET_ORBITS_PER_YEAR: DAYS_PER_YEAR / self._to_float(planet[PLANET_ORBIT_DAYS], DEFAULT_PLANET_ORBIT_DAYS)
         }
 
-    def _to_float(self, value):
-        return float(value) if value else None
+    def _to_float(self, value, default_value=None):
+        return float(value) if value else default_value

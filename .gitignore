@@ -3,3 +3,4 @@
 data/
 *.pyc
 exoplanets.svg
+render_data.json

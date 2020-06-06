@@ -1,6 +1,6 @@
 import codecs
 from svg_config import *
-from field_names import *
+import math
 
 class Svg:
     def __init__(self):
@@ -26,6 +26,14 @@ class Svg:
 
     def add_circle(self, x, y, r, css_class):
         self.content.append(u'<circle cx="{}" cy="{}" r="{}" class="{}"/>'.format(x, y, r, css_class))
+
+    def add_circle_segment(self, cx, cy, r, start_angle, end_angle, css_class):
+        start_x = cx + r * math.sin(start_angle)
+        start_y = cy + r * math.cos(start_angle)
+        end_x = cx + r * math.sin(end_angle)
+        end_y = cy + r * math.cos(end_angle)
+        large_arc = "0" if abs(end_angle - start_angle) < math.pi else "1"
+        self.content.append(u'<path d="M {} {} A {} {} 0 {} 0 {} {}" class="{}"/>'.format(start_x, start_y, r, r, large_arc, end_x, end_y, css_class))
 
     def save(self, out_file):
         part1, tmp = self.template.split('%style%')

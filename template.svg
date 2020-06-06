@@ -38,6 +38,11 @@
                 fill: #f80000;
             }
             .planetOrbit {
+                stroke: #888;
+                stroke-width: 1px;
+                fill: none;
+            }
+            .planetAnnualTravel {
                 stroke: white;
                 stroke-width: 1px;
                 fill: none;

@@ -8,6 +8,10 @@ star_data, maxima = DataProcessor(planet_data, 100).get_star_data()
 svg = Svg()
 svg_wrapper = SvgWrapper(svg, maxima)
 
+import json
+with open('render_data.json', 'w') as f:
+    f.write(json.dumps(star_data, indent=4))
+
 for star in star_data:
     svg_wrapper.add_star(star)
 
