@@ -21,8 +21,8 @@ class Svg:
     def add_centered_text(self, text, x, y, css_class):
         self.content.append(u'<text x="{}" y="{}" text-anchor="middle" class="{}">{}</text>'.format(x, y, css_class, text))
 
-    def add_rect(self, x, y, h, w, css_class):
-        self.content.append(u'<rect x="{}" y="{}" width="{}" height="{}" class="{}"/>'.format(x, y, h, w, css_class))
+    def add_rect(self, x, y, w, h, css_class):
+        self.content.append(u'<rect x="{}" y="{}" width="{}" height="{}" class="{}"/>'.format(x, y, w, h, css_class))
 
     def add_circle(self, x, y, r, css_class):
         self.content.append(u'<circle cx="{}" cy="{}" r="{}" class="{}"/>'.format(x, y, r, css_class))

@@ -7,7 +7,6 @@ class SvgWrapper:
         self.svg = svg
         self.maxima = maxima
         self.star_count = 0
-        self.svg.add_styles('.starName', {'font-size': str(SVG_SMALL_TEXT_SIZE) + 'px'})
         self.box_width = ((SVG_WIDTH - (2 * SVG_MARGIN_X)) / SVG_BOX_COUNT_X) - 2 * SVG_BOX_MARGIN_X
         self.box_height = self.box_width * SVG_BOX_ASPECT_RATIO
 
@@ -27,26 +26,26 @@ class SvgWrapper:
         planet_discs = []
         planet_separation = 2 * math.pi / len(star[PLANETS])
         for i, planet in enumerate(star[PLANETS]):
-                orbit_radius = self._rescale_orbit(planet[PLANET_ORBIT_SIZE])
-                planet_angle = planet_separation * i + self.star_count
+            orbit_radius = self._rescale_orbit(planet[PLANET_ORBIT_SIZE])
+            planet_angle = planet_separation * i + self.star_count
 
-                if planet[PLANET_ORBITS_PER_YEAR] < 1:
-                    self.svg.add_circle(system_center_x, system_center_y, orbit_radius, 'planetOrbit')
+            if planet[PLANET_ORBITS_PER_YEAR] < 1:
+                self.svg.add_circle(system_center_x, system_center_y, orbit_radius, 'planetOrbit')
 
-                    start_arc = planet_angle
-                    end_arc = start_arc + 2 * math.pi * planet[PLANET_ORBITS_PER_YEAR]
-                    self.svg.add_circle_segment(system_center_x, system_center_y, orbit_radius, start_arc, end_arc, 'planetAnnualTravel')
+                start_arc = planet_angle
+                end_arc = start_arc + 2 * math.pi * planet[PLANET_ORBITS_PER_YEAR]
+                self.svg.add_circle_segment(system_center_x, system_center_y, orbit_radius, start_arc, end_arc, 'planetAnnualTravel')
 
-                else:
-                    self.svg.add_circle(system_center_x, system_center_y, orbit_radius, 'planetAnnualTravel')
+            else:
+                self.svg.add_circle(system_center_x, system_center_y, orbit_radius, 'planetAnnualTravel')
 
-                planet_x, planet_y = self._get_planet_center(system_center_x, system_center_y, orbit_radius, planet_angle)
-                planet_discs.append([planet_x, planet_y, self._rescale_planet_disc(planet[PLANET_RADIUS])])
+            planet_x, planet_y = self._get_planet_center(system_center_x, system_center_y, orbit_radius, planet_angle)
+            planet_discs.append([planet_x, planet_y, self._rescale_planet_disc(planet[PLANET_RADIUS])])
 
         for x, y, r in planet_discs:
             self.svg.add_circle(x, y, r, 'planetDisc')
 
-        self.svg.add_centered_text(star[STAR_NAME], box_x + self.box_width/2, box_y + self.box_height - 2*SVG_SMALL_TEXT_SIZE, 'starName')
+        self.svg.add_centered_text(star[STAR_NAME], box_x + self.box_width/2, box_y + self.box_height - 2 * SVG_BOX_PADDING, 'starName')
         self.star_count += 1
 
     def save(self, out_file):
