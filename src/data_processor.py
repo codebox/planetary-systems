@@ -79,7 +79,7 @@ class DataProcessor:
     def _build_planet_data(self, planet):
         return {
             PLANET_NAME: planet[PLANET_NAME],
-            PLANET_DISCOVERED: planet[PLANET_DISCOVERED],
+            PLANET_DISCOVERED: int(planet[PLANET_DISCOVERED]),
             PLANET_RADIUS: self._to_float(planet[PLANET_RADIUS]) or DEFAULT_PLANET_RADIUS,
             PLANET_ORBIT_SIZE: self._to_float(planet[PLANET_ORBIT_SIZE]) or DEFAULT_ORBIT_SIZE,
             PLANET_ORBITS_PER_YEAR: DAYS_PER_YEAR / self._to_float(planet[PLANET_ORBIT_DAYS], DEFAULT_PLANET_ORBIT_DAYS)

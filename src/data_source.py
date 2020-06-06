@@ -13,6 +13,7 @@ class DataSource:
     def get(self):
         if not self.data:
             self._parse_data_file()
+            self._add_solar_system_data()
 
         return self.data
 
@@ -34,7 +35,7 @@ class DataSource:
             STAR_MAGNITUDE: row['st_optmag'],
             STAR_RADIUS: row['st_rad'],
             PLANET_RADIUS: row['pl_rade'],
-            PLANET_DISCOVERED: row['pl_publ_date'] or row['pl_disc'] + '-01',
+            PLANET_DISCOVERED: (row['pl_publ_date'] or row['pl_disc'] + '-01').replace('-', ''),
             STAR_TYPE: row['st_spstr']
         }
 
@@ -61,4 +62,29 @@ class DataSource:
             csv_data = urlopen(request).read().decode()
             f.write(csv_data)
         print('Download complete')
+
+    def _add_solar_system_data(self):
+        def build_planet_data(name, orbit_days, orbit_size, radius, discovered):
+            return {
+                PLANET_NAME: name,
+                STAR_NAME: 'Sol',
+                PLANET_COUNT: 8,
+                PLANET_ORBIT_DAYS: orbit_days,
+                PLANET_ORBIT_SIZE: orbit_size,
+                STAR_DISTANCE: 0.000004848,
+                STAR_MAGNITUDE: -26.74,
+                STAR_RADIUS: 1,
+                PLANET_RADIUS: radius,
+                PLANET_DISCOVERED: discovered,
+                STAR_TYPE: 'G2'
+            }
+
+        self.data.append(build_planet_data('Mercury', 88, 0.387, 0.382, 0))
+        self.data.append(build_planet_data('Venus', 224, 0.72, 0.949, 0))
+        self.data.append(build_planet_data('Earth', 365, 1, 1, 0))
+        self.data.append(build_planet_data('Mars', 687, 1.513, 0.532, 0))
+        self.data.append(build_planet_data('Jupiter', 4331, 5.187, 11.209, 0))
+        self.data.append(build_planet_data('Saturn', 10747, 9.553, 9.449, 0))
+        self.data.append(build_planet_data('Uranus', 30589, 19.147, 4.007, 178103))
+        self.data.append(build_planet_data('Neptune', 90560, 29.967, 3.883, 184609))
 

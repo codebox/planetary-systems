@@ -49,6 +49,15 @@ class SvgWrapper:
         self.svg.add_centered_text(star[STAR_NAME], box_x + self.box_width/2, box_y + self.box_height - 2*SVG_SMALL_TEXT_SIZE, 'starName')
         self.star_count += 1
 
+    def save(self, out_file):
+        self.svg.add_substitutions({
+            'height': 2 * SVG_MARGIN_Y + math.ceil(self.star_count/SVG_BOX_COUNT_X) * self.box_height,
+            'width': SVG_WIDTH,
+            'starCount': self.star_count
+        })
+
+        self.svg.save(out_file)
+
     def _build_log_rescale(self, orig_min, orig_max, scaled_min, scaled_max):
         log_min = math.log(1+orig_min)
         log_max = math.log(1+orig_max)

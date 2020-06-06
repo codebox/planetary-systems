@@ -4,7 +4,7 @@ import math
 
 class Svg:
     def __init__(self):
-        self.template = open('template.svg').read().replace('%height%', str(SVG_HEIGHT)).replace('%width%', str(SVG_WIDTH))
+        self.template = open('template.svg').read()
         self.styles = []
         self.content = []
 
@@ -34,6 +34,10 @@ class Svg:
         end_y = cy + r * math.cos(end_angle)
         large_arc = "0" if abs(end_angle - start_angle) < math.pi else "1"
         self.content.append(u'<path d="M {} {} A {} {} 0 {} 0 {} {}" class="{}"/>'.format(start_x, start_y, r, r, large_arc, end_x, end_y, css_class))
+
+    def add_substitutions(self, substitutions):
+        for key, value in substitutions.items():
+            self.template = self.template.replace('%{}%'.format(key), str(value))
 
     def save(self, out_file):
         part1, tmp = self.template.split('%style%')
