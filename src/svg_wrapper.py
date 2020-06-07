@@ -49,10 +49,12 @@ class SvgWrapper:
         self.star_count += 1
 
     def save(self, out_file):
+        svg_height = 2 * SVG_MARGIN_Y + math.ceil(self.star_count/SVG_BOX_COUNT_X) * self.box_height
         self.svg.add_substitutions({
-            'height': 2 * SVG_MARGIN_Y + math.ceil(self.star_count/SVG_BOX_COUNT_X) * self.box_height,
+            'height': svg_height,
             'width': SVG_WIDTH,
-            'starCount': self.star_count
+            'starCount': self.star_count,
+            'linkTextYPosition': svg_height - SVG_MARGIN_Y / 2
         })
 
         self.svg.save(out_file)

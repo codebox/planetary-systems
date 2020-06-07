@@ -13,10 +13,16 @@
                 font-size: 25px;
             }
             .subTitle {
-                font-size: 15px;
+                font-size: 10px;
+            }
+            .linkText {
+                font-size: 10px;
             }
             .starName {
                 font-size: 10px;
+            }
+            .starName.longName {
+                font-size: 6px;
             }
             svg {
                 background-color: black;
@@ -65,7 +71,7 @@
         <style type="text/css"><![CDATA[%style%]]></style>
     </defs>
     <text x="50%" y="50px" text-anchor="middle" class="mainTitle">Planetary Systems</text>
-    <text x="50%" y="75px" text-anchor="middle" class="subTitle">The first %starCount% known planetary systems</text>
+    <text x="50%" y="75px" text-anchor="middle" class="subTitle">The First %starCount% Planetary Systems Discovered by Humanity</text>
     %substance%
-
+    <text x="50%" y="%linkTextYPosition%" text-anchor="middle" class="linkText">https://codebox.net/planetary-systems</text>
 </svg>

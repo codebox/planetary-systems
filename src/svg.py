@@ -19,7 +19,8 @@ class Svg:
         self.content.append(u'<text x="{}" y="{}" class="{}">{}</text>'.format(x, y, css_class, text))
 
     def add_centered_text(self, text, x, y, css_class):
-        self.content.append(u'<text x="{}" y="{}" text-anchor="middle" class="{}">{}</text>'.format(x, y, css_class, text))
+        small_font = len(text) > 12
+        self.content.append(u'<text x="{}" y="{}" text-anchor="middle" class="{}">{}</text>'.format(x, y, css_class + (' longName' if small_font else ''), text))
 
     def add_rect(self, x, y, w, h, css_class):
         self.content.append(u'<rect x="{}" y="{}" width="{}" height="{}" class="{}"/>'.format(x, y, w, h, css_class))
