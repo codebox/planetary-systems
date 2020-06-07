@@ -1,6 +1,16 @@
 from field_names import *
-from svg_config import *
+from config import config
 import math
+
+svg_config = config['svg']
+SVG_WIDTH = svg_config['width']
+SVG_MARGIN_X = svg_config['margin_x']
+SVG_MARGIN_Y = svg_config['margin_y']
+SVG_BOX_COUNT_X = svg_config['box_count_x']
+SVG_BOX_MARGIN_X = svg_config['box_margin_x']
+SVG_BOX_MARGIN_Y = svg_config['box_margin_x']
+SVG_BOX_PADDING = svg_config['box_padding']
+SVG_BOX_ASPECT_RATIO = svg_config['box_aspect_ratio']
 
 class SvgWrapper:
     def __init__(self, svg, maxima):
@@ -53,7 +63,8 @@ class SvgWrapper:
         self.svg.add_substitutions({
             'height': svg_height,
             'width': SVG_WIDTH,
-            'starCount': self.star_count,
+            'title': config['title'],
+            'sub_title': config['sub_title'],
             'linkTextYPosition': svg_height - SVG_MARGIN_Y / 2
         })
 

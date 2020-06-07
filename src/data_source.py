@@ -3,8 +3,9 @@ import os, os.path
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 from field_names import *
+from config import config
 
-DATA_FILE = 'data/exoplanets.csv'
+DATA_FILE = config['download']['csv_file']
 
 class DataSource:
     def __init__(self):
@@ -40,22 +41,11 @@ class DataSource:
         }
 
     def _download_data_file(self):
-        url = 'https://exoplanetarchive.ipac.caltech.edu/cgi-bin/IceTable/nph-iceTblDownload'
-
-        post_fields = {
-            'workspace': '2020.06.05_02.13.37_010518/TblView/2020.06.05_03.57.46_031348',
-            'useTimestamp': '1',
-            'table': '/exodata/kvmexoweb/ExoTables/planets.tbl',
-            'format': 'CSV',
-            'user': '',
-            'label': '',
-            'columns': 'all',
-            'rows': 'all',
-            'mission': 'ExoplanetArchive',
-            'noErrors': 'true'
-        }
+        url = config['download']['url']
+        post_fields = config['download']['post_body']
 
         os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
+
         print('Downloading data from {}...'.format(url))
         request = Request(url, urlencode(post_fields).encode())
         with open(DATA_FILE,'w') as f:

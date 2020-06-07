@@ -1,9 +1,5 @@
 from field_names import *
-
-DAYS_PER_YEAR = 365
-DEFAULT_ORBIT_SIZE = 1
-DEFAULT_PLANET_RADIUS = 1
-DEFAULT_PLANET_ORBIT_DAYS = DAYS_PER_YEAR
+from config import config, DAYS_PER_YEAR
 
 class DataProcessor:
     def __init__(self, planet_data, count, get_sort_key):
@@ -77,12 +73,13 @@ class DataProcessor:
         }
 
     def _build_planet_data(self, planet):
+        render_defaults = config['render_defaults']
         return {
             PLANET_NAME: planet[PLANET_NAME],
             PLANET_DISCOVERED: int(planet[PLANET_DISCOVERED]),
-            PLANET_RADIUS: self._to_float(planet[PLANET_RADIUS]) or DEFAULT_PLANET_RADIUS,
-            PLANET_ORBIT_SIZE: self._to_float(planet[PLANET_ORBIT_SIZE]) or DEFAULT_ORBIT_SIZE,
-            PLANET_ORBITS_PER_YEAR: DAYS_PER_YEAR / self._to_float(planet[PLANET_ORBIT_DAYS], DEFAULT_PLANET_ORBIT_DAYS)
+            PLANET_RADIUS: self._to_float(planet[PLANET_RADIUS]) or render_defaults['planet_radius'],
+            PLANET_ORBIT_SIZE: self._to_float(planet[PLANET_ORBIT_SIZE]) or render_defaults['orbit_size'],
+            PLANET_ORBITS_PER_YEAR: DAYS_PER_YEAR / self._to_float(planet[PLANET_ORBIT_DAYS], render_defaults['planet_orbit_days'])
         }
 
     def _to_float(self, value, default_value=None):

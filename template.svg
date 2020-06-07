@@ -70,8 +70,8 @@
         </style>
         <style type="text/css"><![CDATA[%style%]]></style>
     </defs>
-    <text x="50%" y="50px" text-anchor="middle" class="mainTitle">Planetary Systems</text>
-    <text x="50%" y="75px" text-anchor="middle" class="subTitle">The First %starCount% Planetary Systems Discovered by Humanity</text>
+    <text x="50%" y="50px" text-anchor="middle" class="mainTitle">%title%</text>
+    <text x="50%" y="75px" text-anchor="middle" class="subTitle">%sub_title%</text>
     %substance%
     <text x="50%" y="%linkTextYPosition%" text-anchor="middle" class="linkText">https://codebox.net/planetary-systems</text>
 </svg>

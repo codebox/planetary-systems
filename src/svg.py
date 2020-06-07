@@ -1,6 +1,7 @@
 import codecs
-from svg_config import *
 import math
+from config import config
+
 
 class Svg:
     def __init__(self):
@@ -44,7 +45,7 @@ class Svg:
         part1, tmp = self.template.split('%style%')
         part2, part3 = tmp.split('%substance%')
 
-        with codecs.open(out_file, 'w', encoding=SVG_ENCODING) as f:
+        with codecs.open(out_file, 'w', encoding=config['svg']['encoding']) as f:
             f.write(part1)
             for style in self.styles:
                 f.write(style)
